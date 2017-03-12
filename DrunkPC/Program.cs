@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Windows.Forms;
+using System.Drawing;
 
 
 ///Applicaion Name: Drunk PC
@@ -39,6 +41,15 @@ namespace DrunkPC
             drunkSoundThread.Start();
             drunkPopupThread.Start();
 
+            ///Wait for user input
+            Console.Read();
+
+            ///Kill all threads
+            drunkMouseThread.Abort();
+            drunkKeyboardThread.Abort();
+            drunkSoundThread.Abort();
+            drunkPopupThread.Abort();
+
         }
 
 #region Thread Functions
@@ -47,9 +58,25 @@ namespace DrunkPC
         /// </summary>
         public static void DrunkMouseThread()
         {
-            while(true)
+            Console.WriteLine("DrunkMouseThread started");
+
+            int moveX = 0;
+            int moveY = 0;
+
+            while (true)
             {
-                Thread.Sleep(500);
+                ///Console.WriteLine(Cursor.Position.ToString());
+
+                ///Generate random X and Y values
+                moveX = _random.Next(20) - 10;
+                moveY = _random.Next(20) - 10;
+
+                ///Change to position of the pointer based on the random values
+                Cursor.Position = new Point(
+                    Cursor.Position.X + moveX, 
+                    Cursor.Position.Y + moveY);
+
+                Thread.Sleep(50);
             }
 
         }
@@ -59,8 +86,12 @@ namespace DrunkPC
         /// </summary>
         public static void DrunkKeyboardThread()
         {
+            ///Console.WriteLine("DrunkKeyboardThread started");
+
             while (true)
             {
+                char key = (char)(_random.Next(25)+65);
+                SendKeys.SendWait(key.ToString());
                 Thread.Sleep(500);
             }
 
@@ -71,8 +102,11 @@ namespace DrunkPC
         /// </summary>
         public static void DrunkSoundThread()
         {
+            Console.WriteLine("DrunkSoundThread started");
+
             while (true)
             {
+                
                 Thread.Sleep(500);
             }
 
@@ -83,8 +117,11 @@ namespace DrunkPC
         /// </summary>
         public static void DrunkPopupThread()
         {
+            Console.WriteLine("DrunkPopupThread started");
+
             while (true)
             {
+                
                 Thread.Sleep(500);
             }
 
