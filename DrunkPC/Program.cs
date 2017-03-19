@@ -82,7 +82,7 @@ namespace DrunkPC
         }
 
         /// <summary>
-        /// This thread will genete randm keyboard utput to screw with the user
+        /// This thread will genete random keyboard utput to screw with the user
         /// </summary>
         public static void DrunkKeyboardThread()
         {
